@@ -1,0 +1,32 @@
+# Secretos y configuración local
+.env
+.env.*
+!.env.example
+appsettings.*.local.json
+appsettings.Production.json
+secrets.json
+*.pfx
+*.pem
+*.key
+.claude/settings.local.json
+
+# Node / frontend
+node_modules/
+dist/
+coverage/
+*.log
+
+# .NET / backend
+bin/
+obj/
+*.user
+*.suo
+.vs/
+TestResults/
+
+# Editores y SO
+.idea/
+.vscode/*
+!.vscode/extensions.json
+.DS_Store
+Thumbs.db
