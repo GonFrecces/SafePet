@@ -70,6 +70,7 @@ SafePet es una aplicación web responsiva (escritorio y móvil) para agendar hor
 │       ├── SafePet.Domain.Tests/
 │       ├── SafePet.Application.Tests/
 │       └── SafePet.Api.IntegrationTests/
+├── docs/                         # equipo de agentes, ADRs (docs/adr) y hoja de ruta
 └── .claude/agents/               # subagentes de Claude Code
 ```
 
@@ -233,4 +234,19 @@ dotnet ef database update -p src/SafePet.Infrastructure -s src/SafePet.Api   # S
 6. Abrir PR con: alcance, exclusiones, criterios de aceptación, pruebas ejecutadas y plan de rollback.
 7. Esperar revisión humana. No hacer merge ni desplegar.
 
-Subagentes disponibles en `.claude/agents/`: `backend-dotnet`, `frontend-react`, `db-migrations`, `security-reviewer`, `test-runner`.
+Subagentes disponibles en `.claude/agents/` (detalle de capacidades, límites, modelos y flujo en [`docs/equipo-agentes.md`](docs/equipo-agentes.md)):
+
+| Agente | Rol | Escribe código |
+|---|---|---|
+| `engineering-lead` | Mika — facilita decisiones, redacta ADR y hoja de ruta | No (solo `docs/adr/`, `docs/roadmap/`) |
+| `repo-auditor` | Evidencia del repositorio actual | No |
+| `solution-architect` | Arquitectura y alternativas | No |
+| `backend-engineer` | Backend .NET en capas | Sí, con issue aprobado |
+| `frontend-engineer` | SPA React | Sí, con issue aprobado |
+| `devops-cloud` | CI/CD, hosting, costos, observabilidad | Solo CI/contenedores, nunca despliega |
+| `security-engineer` | Seguridad y multi-tenancy | No |
+| `qa-reviewer` | Revisión independiente y pruebas afectadas | No |
+| `modernization-developer` | Implementa decisiones aprobadas | Sí, con issue + ADR aceptado |
+| `db-migrations` | Apoyo: esquema y migraciones EF Core | Sí, con issue aprobado |
+
+Las decisiones de arquitectura siguen el flujo: issue de decisión → informes independientes (Auditor, Architect, Backend, Frontend, DevOps, Security) → QA Review → Mika publica ADR **Propuesto** + hoja de ruta + tareas pendientes de aprobación humana.
