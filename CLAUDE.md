@@ -71,7 +71,8 @@ SafePet es una aplicación web responsiva (escritorio y móvil) para agendar hor
 │       ├── SafePet.Application.Tests/
 │       └── SafePet.Api.IntegrationTests/
 ├── docs/                         # equipo de agentes, ADRs (docs/adr) y hoja de ruta
-└── .claude/agents/               # subagentes de Claude Code
+├── .claude/agents/               # subagentes de Claude Code
+└── .claude/skills/               # skills de los subagentes (SKILL.md)
 ```
 
 ### 2.3 Responsabilidades por capa

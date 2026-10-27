@@ -16,4 +16,5 @@ APP DE MASCOTAS: plataforma web responsiva y multi-tenant para agendar horas en 
 
 - [CLAUDE.md](./CLAUDE.md): arquitectura, comandos, convenciones y reglas obligatorias del repositorio.
 - [.claude/agents](./.claude/agents): subagentes de Claude Code.
+- [.claude/skills](./.claude/skills/README.md): skills de cada agente (SKILL.md).
 - [docs/equipo-agentes.md](./docs/equipo-agentes.md): equipo de agentes, capacidades, modelos y flujo de decisión de arquitectura.
