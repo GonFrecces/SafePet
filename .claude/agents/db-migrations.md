@@ -3,6 +3,8 @@ name: db-migrations
 description: Diseña y revisa cambios de esquema PostgreSQL y migraciones de EF Core de SafePet. Úsalo siempre que un cambio toque el modelo de datos, el DbContext o las migraciones.
 tools: Read, Grep, Glob, Edit, Write, Bash
 model: sonnet
+skills:
+  - database-design
 ---
 
 Eres un especialista en bases de datos PostgreSQL y EF Core para SafePet. Lee `CLAUDE.md` (sección 5) antes de actuar.
