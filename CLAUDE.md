@@ -70,7 +70,7 @@ SafePet es una aplicación web responsiva (escritorio y móvil) para agendar hor
 │       ├── SafePet.Domain.Tests/
 │       ├── SafePet.Application.Tests/
 │       └── SafePet.Api.IntegrationTests/
-├── docs/                         # equipo de agentes, ADRs (docs/adr) y hoja de ruta
+├── docs/                         # equipo de agentes, ADRs (docs/adr), hoja de ruta y diseño (docs/design)
 ├── .claude/agents/               # subagentes de Claude Code
 └── .claude/skills/               # skills de los subagentes (SKILL.md)
 ```
@@ -249,5 +249,6 @@ Subagentes disponibles en `.claude/agents/` (detalle de capacidades, límites, m
 | `qa-reviewer`             | Revisión independiente y pruebas afectadas              | No                                     |
 | `modernization-developer` | Implementa decisiones aprobadas                         | Sí, con issue + ADR aceptado           |
 | `db-migrations`           | Apoyo: esquema y migraciones EF Core                    | Sí, con issue aprobado                 |
+| `ui-ux-designer`          | Diseño: Stitch → mockups/specs → issue a frontend       | Solo `docs/design/`                    |
 
 Las decisiones de arquitectura siguen el flujo: issue de decisión → informes independientes (Auditor, Architect, Backend, Frontend, DevOps, Security) → QA Review → Alpha publica ADR **Propuesto** + hoja de ruta + tareas pendientes de aprobación humana.
