@@ -27,12 +27,12 @@ SafePet es una aplicación web responsiva (escritorio y móvil) para agendar hor
 
 **[Hecho — Linear]** Perfiles:
 
-| Rol | Alcance |
-|---|---|
-| `OWNER` | Único por compañía. Acceso a todas las funcionalidades, limitado a sus sucursales. |
-| `PROFESIONAL` | Veterinario: atención, seguimiento, tratamientos, recetas, historial médico, corte de pelo. |
-| `ADMINISTRATIVO` | Agenda, disponibilidad, venta de productos, cobro de atenciones, turnos. |
-| Cliente (anónimo) | Solo agenda horas. Sin cuenta. |
+| Rol               | Alcance                                                                                     |
+| ----------------- | ------------------------------------------------------------------------------------------- |
+| `OWNER`           | Único por compañía. Acceso a todas las funcionalidades, limitado a sus sucursales.          |
+| `PROFESIONAL`     | Veterinario: atención, seguimiento, tratamientos, recetas, historial médico, corte de pelo. |
+| `ADMINISTRATIVO`  | Agenda, disponibilidad, venta de productos, cobro de atenciones, turnos.                    |
+| Cliente (anónimo) | Solo agenda horas. Sin cuenta.                                                              |
 
 ---
 
@@ -77,13 +77,13 @@ SafePet es una aplicación web responsiva (escritorio y móvil) para agendar hor
 
 ### 2.3 Responsabilidades por capa
 
-| Componente | Responsabilidad | No debe |
-|---|---|---|
-| `frontend` | UI responsiva, agenda pública, backoffice por rol, consumo de la API. | Contener reglas de negocio críticas, secretos o claves privadas de Stripe. |
-| `SafePet.Api` | HTTP, autenticación/autorización por rol, resolución del tenant, serialización, manejo de errores. | Acceder a `DbContext` directamente ni contener lógica de negocio. |
-| `SafePet.Application` | Orquestar casos de uso (agendar, abrir/cerrar cita, emitir receta, cobrar). | Depender de EF Core, Stripe SDK o ASP.NET. |
-| `SafePet.Domain` | Entidades y reglas puras (estados de cita, tipos de atención, invariantes). | Tener dependencias externas. |
-| `SafePet.Infrastructure` | Persistencia, migraciones, integración Stripe (incl. webhooks), jobs de notificación. | Exponer entidades de EF hacia la API. |
+| Componente               | Responsabilidad                                                                                    | No debe                                                                    |
+| ------------------------ | -------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------- |
+| `frontend`               | UI responsiva, agenda pública, backoffice por rol, consumo de la API.                              | Contener reglas de negocio críticas, secretos o claves privadas de Stripe. |
+| `SafePet.Api`            | HTTP, autenticación/autorización por rol, resolución del tenant, serialización, manejo de errores. | Acceder a `DbContext` directamente ni contener lógica de negocio.          |
+| `SafePet.Application`    | Orquestar casos de uso (agendar, abrir/cerrar cita, emitir receta, cobrar).                        | Depender de EF Core, Stripe SDK o ASP.NET.                                 |
+| `SafePet.Domain`         | Entidades y reglas puras (estados de cita, tipos de atención, invariantes).                        | Tener dependencias externas.                                               |
+| `SafePet.Infrastructure` | Persistencia, migraciones, integración Stripe (incl. webhooks), jobs de notificación.              | Exponer entidades de EF hacia la API.                                      |
 
 Regla de dependencias: `Api → Application → Domain` e `Infrastructure → Application/Domain`. `Domain` no referencia a nadie.
 
@@ -180,7 +180,7 @@ dotnet ef database update -p src/SafePet.Infrastructure -s src/SafePet.Api   # S
 2. **Nunca editar una migración ya fusionada** en la rama principal. Para corregir, crear una nueva migración.
 3. Nombres descriptivos: `AddPrescriptionTable`, `AddTenantIdToAppointments`.
 4. Cada migración debe tener `Down` funcional y probado localmente (`update` → `update <anterior>` → `update`).
-5. **Cambios destructivos** (borrar/renombrar columnas o tablas, cambiar tipos, `NOT NULL` sobre datos existentes) se hacen en fases (*expand → migrate → contract*) y en PRs separados, para mantener compatibilidad entre versiones del backend y del frontend.
+5. **Cambios destructivos** (borrar/renombrar columnas o tablas, cambiar tipos, `NOT NULL` sobre datos existentes) se hacen en fases (_expand → migrate → contract_) y en PRs separados, para mantener compatibilidad entre versiones del backend y del frontend.
 6. Toda tabla de datos de clínica incluye `TenantId` con índice y está cubierta por el query filter de tenant.
 7. Migraciones con datos (seed/backfill) deben ser idempotentes.
 8. El PR que agrega una migración debe incluir el script SQL generado (`migrations script --idempotent`) en la descripción o como artefacto para revisión.
@@ -237,17 +237,17 @@ dotnet ef database update -p src/SafePet.Infrastructure -s src/SafePet.Api   # S
 
 Subagentes disponibles en `.claude/agents/` (detalle de capacidades, límites, modelos y flujo en [`docs/equipo-agentes.md`](docs/equipo-agentes.md)):
 
-| Agente | Rol | Escribe código |
-|---|---|---|
-| `engineering-lead` | Mika — facilita decisiones, redacta ADR y hoja de ruta | No (solo `docs/adr/`, `docs/roadmap/`) |
-| `repo-auditor` | Evidencia del repositorio actual | No |
-| `solution-architect` | Arquitectura y alternativas | No |
-| `backend-engineer` | Backend .NET en capas | Sí, con issue aprobado |
-| `frontend-engineer` | SPA React | Sí, con issue aprobado |
-| `devops-cloud` | CI/CD, hosting, costos, observabilidad | Solo CI/contenedores, nunca despliega |
-| `security-engineer` | Seguridad y multi-tenancy | No |
-| `qa-reviewer` | Revisión independiente y pruebas afectadas | No |
-| `modernization-developer` | Implementa decisiones aprobadas | Sí, con issue + ADR aceptado |
-| `db-migrations` | Apoyo: esquema y migraciones EF Core | Sí, con issue aprobado |
+| Agente                    | Rol                                                     | Escribe código                         |
+| ------------------------- | ------------------------------------------------------- | -------------------------------------- |
+| `engineering-lead`        | Alpha — facilita decisiones, redacta ADR y hoja de ruta | No (solo `docs/adr/`, `docs/roadmap/`) |
+| `repo-auditor`            | Evidencia del repositorio actual                        | No                                     |
+| `solution-architect`      | Arquitectura y alternativas                             | No                                     |
+| `backend-engineer`        | Backend .NET en capas                                   | Sí, con issue aprobado                 |
+| `frontend-engineer`       | SPA React                                               | Sí, con issue aprobado                 |
+| `devops-cloud`            | CI/CD, hosting, costos, observabilidad                  | Solo CI/contenedores, nunca despliega  |
+| `security-engineer`       | Seguridad y multi-tenancy                               | No                                     |
+| `qa-reviewer`             | Revisión independiente y pruebas afectadas              | No                                     |
+| `modernization-developer` | Implementa decisiones aprobadas                         | Sí, con issue + ADR aceptado           |
+| `db-migrations`           | Apoyo: esquema y migraciones EF Core                    | Sí, con issue aprobado                 |
 
-Las decisiones de arquitectura siguen el flujo: issue de decisión → informes independientes (Auditor, Architect, Backend, Frontend, DevOps, Security) → QA Review → Mika publica ADR **Propuesto** + hoja de ruta + tareas pendientes de aprobación humana.
+Las decisiones de arquitectura siguen el flujo: issue de decisión → informes independientes (Auditor, Architect, Backend, Frontend, DevOps, Security) → QA Review → Alpha publica ADR **Propuesto** + hoja de ruta + tareas pendientes de aprobación humana.

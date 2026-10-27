@@ -156,24 +156,24 @@ Reglas obligatorias: CLAUDE.md del repo GonFrecces/SafePet.
 
 Las 28 skills están en [`.claude/skills/<nombre>/SKILL.md`](../.claude/skills/README.md) (formato Agent Skills: frontmatter `name` + `description` y cuerpo con procedimiento, checklists y plantillas). Cada subagente las declara en su frontmatter (`skills:`), así que Claude Code las carga automáticamente.
 
-En Multica: subir o pegar cada `SKILL.md` en la skill homónima y asignarla al agente según la columna **Skills** de cada ficha. `adr-writing` (formato y ciclo de estados del ADR, Mika) y `architecture-decision-records` (análisis de alternativas, Solution Architect) son complementarias, no duplicadas. `db-migrations` reutiliza `database-design`.
+En Multica: subir o pegar cada `SKILL.md` en la skill homónima y asignarla al agente según la columna **Skills** de cada ficha. `adr-writing` (formato y ciclo de estados del ADR, Alpha) y `architecture-decision-records` (análisis de alternativas, Solution Architect) son complementarias, no duplicadas. `db-migrations` reutiliza `database-design`.
 
 ## Configuración en Multica
 
 <<<<<<< Updated upstream
+
 1. **Skills:** crear las 28 skills desde `.claude/skills/*/SKILL.md` (o el paquete `safepet-skills.zip`).
 2. **AI Team → Agents:** crear los agentes 1–9 con nombre, modelo, skills e instrucciones (reglas comunes + bloque del agente).
-3. **Squad "SafePet Architecture"**: líder **Mika**; miembros Repository Auditor, Solution Architect, Senior Backend Engineer, Senior Frontend Engineer, DevOps & Cloud Engineer, Security Engineer, QA Review Engineer. Modernization Developer **no** participa en la reunión de decisión.
+3. **Squad "SafePet Architecture"**: líder **Alpha**; miembros Repository Auditor, Solution Architect, Senior Backend Engineer, Senior Frontend Engineer, DevOps & Cloud Engineer, Security Engineer, QA Review Engineer. Modernization Developer **no** participa en la reunión de decisión.
 4. Crear el issue de reunión (abajo) y asignarlo al squad.
-5. Pedir a Mika informes independientes primero y síntesis después. No asumir ejecución en paralelo: verificar en el historial qué agentes participaron.
-6. Primera actividad en **modo análisis**, sin cambios en el repositorio (evita conflictos de agentes sobre la misma rama).
-=======
-1. **AI Team → Agents:** crear los agentes 1–9 con nombre, modelo, skills e instrucciones (reglas comunes + bloque del agente).
-2. **Squad "SafePet Architecture"**: líder **Alpha**; miembros Repository Auditor, Solution Architect, Senior Backend Engineer, Senior Frontend Engineer, DevOps & Cloud Engineer, Security Engineer, QA Review Engineer. Modernization Developer **no** participa en la reunión de decisión.
-3. Crear el issue de reunión (abajo) y asignarlo al squad.
-4. Pedir a Alpha informes independientes primero y síntesis después. No asumir ejecución en paralelo: verificar en el historial qué agentes participaron.
-5. Primera actividad en **modo análisis**, sin cambios en el repositorio (evita conflictos de agentes sobre la misma rama).
->>>>>>> Stashed changes
+5. Pedir a Alpha informes independientes primero y síntesis después. No asumir ejecución en paralelo: verificar en el historial qué agentes participaron.
+6. # Primera actividad en **modo análisis**, sin cambios en el repositorio (evita conflictos de agentes sobre la misma rama).
+7. **AI Team → Agents:** crear los agentes 1–9 con nombre, modelo, skills e instrucciones (reglas comunes + bloque del agente).
+8. **Squad "SafePet Architecture"**: líder **Alpha**; miembros Repository Auditor, Solution Architect, Senior Backend Engineer, Senior Frontend Engineer, DevOps & Cloud Engineer, Security Engineer, QA Review Engineer. Modernization Developer **no** participa en la reunión de decisión.
+9. Crear el issue de reunión (abajo) y asignarlo al squad.
+10. Pedir a Alpha informes independientes primero y síntesis después. No asumir ejecución en paralelo: verificar en el historial qué agentes participaron.
+11. Primera actividad en **modo análisis**, sin cambios en el repositorio (evita conflictos de agentes sobre la misma rama).
+    > > > > > > > Stashed changes
 
 ## Flujo de la reunión de decisión
 
