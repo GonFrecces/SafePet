@@ -160,6 +160,6 @@ Usar _Annotate_ para cambios puntuales y _Variations_ (bloquear **color** y **fu
 2. **PNG** de cada pantalla → `docs/design/<feature>/screens/`.
 3. **HTML/Tailwind** solo como referencia → `docs/design/<feature>/reference/` (no se importa al frontend).
 4. Enlace del proyecto Stitch + Figma en el issue de diseño de Linear.
-5. El agente **UI/UX Designer** redacta `docs/design/<feature>/spec.md` y crea el issue para `agent:frontend-engineer` (ver `docs/equipo-agentes.md` → flujo de diseño).
+5. **Wanda** (UX/UI Designer) redacta `docs/design/<feature>/spec.md` y crea el issue para `agent:shuri-frontend-engineer` (ver `docs/equipo-agentes.md` → flujo de diseño).
 
 > Si se usa el MCP de Stitch desde Claude Code/Multica, la API key va **solo** como variable de entorno del runtime (p. ej. `STITCH_API_KEY`), nunca en el repo, issues ni prompts (`CLAUDE.md` §6).

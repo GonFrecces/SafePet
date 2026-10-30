@@ -237,18 +237,24 @@ dotnet ef database update -p src/SafePet.Infrastructure -s src/SafePet.Api   # S
 
 Subagentes disponibles en `.claude/agents/` (detalle de capacidades, límites, modelos y flujo en [`docs/equipo-agentes.md`](docs/equipo-agentes.md)):
 
-| Agente                    | Rol                                                     | Escribe código                         |
-| ------------------------- | ------------------------------------------------------- | -------------------------------------- |
-| `engineering-lead`        | Alpha — facilita decisiones, redacta ADR y hoja de ruta | No (solo `docs/adr/`, `docs/roadmap/`) |
-| `repo-auditor`            | Evidencia del repositorio actual                        | No                                     |
-| `solution-architect`      | Arquitectura y alternativas                             | No                                     |
-| `backend-engineer`        | Backend .NET en capas                                   | Sí, con issue aprobado                 |
-| `frontend-engineer`       | SPA React                                               | Sí, con issue aprobado                 |
-| `devops-cloud`            | CI/CD, hosting, costos, observabilidad                  | Solo CI/contenedores, nunca despliega  |
-| `security-engineer`       | Seguridad y multi-tenancy                               | No                                     |
-| `qa-reviewer`             | Revisión independiente y pruebas afectadas              | No                                     |
-| `modernization-developer` | Implementa decisiones aprobadas                         | Sí, con issue + ADR aceptado           |
-| `db-migrations`           | Apoyo: esquema y migraciones EF Core                    | Sí, con issue aprobado                 |
-| `ui-ux-designer`          | Diseño: Stitch → mockups/specs → issue a frontend       | Solo `docs/design/`                    |
+| Agente | Personaje · cargo | Capa | Escribe código |
+| --- | --- | --- | --- |
+| `pepper-product-manager` | Pepper · Product Manager | Producto (fuera de capas) | No (solo Linear: comentarios, prioridad, milestone). |
+| `charles-engineering-manager` | Charles · Engineering Manager · Scrum Master | Coordinación (fuera de capas) | Solo `docs/adr/`, `docs/roadmap/`. |
+| `tony-software-architect` | Tony · Software Architect | Decisión (Illuminati) | No. |
+| `reed-principal-engineer` | Reed · Principal Engineer · dueño de BD y migraciones | Capa 1 · Base de datos | Sí, con issue aprobado. |
+| `bruce-backend-engineer` | Bruce · Senior Backend Engineer | Capa 2 · Backend | Sí, con issue aprobado. |
+| `shuri-frontend-engineer` | Shuri · Senior Frontend Engineer | Capa 3 · Frontend | Sí, con issue aprobado. |
+| `sage-research-engineer` | Sage · Research Engineer | Soporte (sin código) | No. |
+| `riri-performance-engineer` | Riri · Performance Engineer | Soporte · después de capa 3 | Sí, con issue aprobado. |
+| `peter-junior-developer` | Peter · Junior Developer | Cualquier capa · solo tareas ≤ 1 punto | Sí, con issue aprobado. |
+| `strange-cloud-architect` | Strange · Cloud Architect | Decisión (Illuminati) · infraestructura | No. |
+| `forge-devops-engineer` | Forge · DevOps Engineer | Transversal · CI/CD | Solo CI y contenedores. |
+| `natasha-security-engineer` | Natasha · Security Engineer | Capa 4 · Seguridad | No. |
+| `domino-qa-automation` | Domino · QA Automation Engineer | Capa 5 · QA | No (solo informes). |
+| `vision-code-auditor` | Vision · Code Auditor | Capa 5 · Auditoría | No. |
+| `wanda-ux-ui-designer` | Wanda · UX/UI Designer | Pista de diseño (sin código, antes de capa 3) | Solo `docs/design/`. |
 
-Las decisiones de arquitectura siguen el flujo: issue de decisión → informes independientes (Auditor, Architect, Backend, Frontend, DevOps, Security) → QA Review → Alpha publica ADR **Propuesto** + hoja de ruta + tareas pendientes de aprobación humana.
+Orden de entrega por MVP: capa 1 BD (Reed) → 2 Backend (Bruce) → 3 Frontend (Shuri) → 4 Seguridad (Natasha) → 5 QA (Domino, Vision). Charles despacha con el label `ready` de Linear.
+
+Las decisiones de arquitectura (squad *Los Illuminati*) siguen el flujo: issue de decisión → informes independientes (Vision, Tony, Bruce, Shuri, Strange, Natasha, Sage) → revisión de Domino → Charles publica ADR **Propuesto** + hoja de ruta + tareas pendientes de aprobación humana.

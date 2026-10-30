@@ -13,7 +13,7 @@ description: Analiza alternativas de arquitectura y prepara el contenido técnic
    - B. Monolito + worker separado para notificaciones/webhooks.
    - C. Microservicios por contexto.
 3. **Para cada opción:** diagrama textual C4 (contexto y contenedores), flujo de una reserva pública, flujo de pago, despliegue, costo free tier, complejidad operativa, impacto en pruebas, reversibilidad.
-4. **Matriz.** Criterios ponderados (alinear con Alpha). Justifica cada puntuación en una línea.
+4. **Matriz.** Criterios ponderados (alinear con Charles). Justifica cada puntuación en una línea.
 5. **Riesgos y mitigaciones** por opción.
 6. **Fitness functions.** Reglas verificables que protegen la decisión (p. ej. prueba de arquitectura: `Domain` no referencia `Infrastructure`; prueba de aislamiento de tenant en CI).
 

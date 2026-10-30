@@ -8,7 +8,7 @@ description: Mantiene el design system de SafePet (docs/design/DESIGN.md) y su t
 ## Fuente única
 `docs/design/DESIGN.md` (YAML de tokens + reglas). Stitch lo consume; el frontend lo traduce. Todo cambio de token se hace aquí primero, en un PR propio.
 
-## Mapeo a implementación (referencia para frontend-engineer)
+## Mapeo a implementación (referencia para shuri-frontend-engineer)
 | Token DESIGN.md | PrimeReact (styled, tema Lara) | FullCalendar |
 |---|---|---|
 | `primary`, `primary-hover`, `primary-soft` | `--primary-color`, `--primary-600/700`, `--highlight-bg` | `--fc-button-bg-color`, `--fc-today-bg-color` |
