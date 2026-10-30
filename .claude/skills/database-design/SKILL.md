@@ -18,7 +18,7 @@ description: Diseña y revisa el modelo de datos PostgreSQL/EF Core: entidades, 
 ## Procedimiento
 1. Modelo conceptual (entidades y relaciones) → lógico (tablas, columnas, tipos) → físico (índices, constraints).
 2. Consultas principales y su plan esperado (`EXPLAIN` en local).
-3. Cambio de esquema → delegar a `db-migrations`: migración EF Core con `Down`, expand→migrate→contract si es destructivo, script idempotente.
+3. Cambio de esquema → delegar a `reed-principal-engineer`: migración EF Core con `Down`, expand→migrate→contract si es destructivo, script idempotente.
 4. Alternativas multi-tenant si se evalúan: columna + filtro (default), schema por tenant, RLS en PostgreSQL (defensa en profundidad). Comparar complejidad y riesgo.
 
 ## Checklist

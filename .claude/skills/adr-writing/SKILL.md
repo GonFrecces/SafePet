@@ -22,7 +22,7 @@ Un agente nunca marca un ADR como Aceptado.
 - Estado: Propuesto
 - Fecha: AAAA-MM-DD
 - Decisores: <humano responsable>
-- Facilitador: Alpha (engineering-lead)
+- Facilitador: Charles (charles-engineering-manager)
 - Participantes: <agentes que aportaron>
 - Issue: GON-XX
 

@@ -1,6 +1,6 @@
 ---
 name: design-handoff
-description: Convierte mockups aprobados de Stitch/Figma en una spec implementable (docs/design/<feature>/spec.md) y crea el issue para frontend-engineer con alcance, exclusiones, criterios de aceptación y dependencias de API. Úsala cuando un diseño esté aprobado y deba pasar a implementación.
+description: Convierte mockups aprobados de Stitch/Figma en una spec implementable (docs/design/<feature>/spec.md) y crea el issue para shuri-frontend-engineer con alcance, exclusiones, criterios de aceptación y dependencias de API. Úsala cuando un diseño esté aprobado y deba pasar a implementación.
 ---
 
 # Handoff de diseño → Frontend
@@ -19,10 +19,10 @@ description: Convierte mockups aprobados de Stitch/Figma en una spec implementab
 7. **Accesibilidad**: orden de foco, `aria-*`, alternativa al calendario, anuncios `aria-live`.
 8. **Fuera de alcance** y **desvíos** frente a `DESIGN.md`.
 
-## Issue para `agent:frontend-engineer` (plantilla)
+## Issue para `agent:shuri-frontend-engineer` (plantilla)
 ```
 Título: feat(<feature>): implementar <pantalla/flujo> según diseño
-Labels: agent:frontend-engineer, Frontend
+Labels: agent:shuri-frontend-engineer, Frontend
 Bloqueado por: <issue de diseño>  ·  Relacionado: <issue de contrato API si aplica>
 Diseño: docs/design/<feature>/spec.md · Stitch/Figma: <enlaces>
 Alcance: pantallas X, Y (móvil + escritorio), estados listados en la spec.
@@ -37,7 +37,7 @@ Criterios de aceptación (dado/cuando/entonces):
 ## Reglas
 - Una feature = un issue de implementación (pequeño, revisable); dividir si supera ~5 pantallas.
 - El HTML/Tailwind de Stitch se enlaza como referencia, nunca como base de código.
-- Si falta un endpoint, no se inventa el contrato: se crea/enlaza issue para `solution-architect`/`backend-engineer`.
+- Si falta un endpoint, no se inventa el contrato: se crea/enlaza issue para `tony-software-architect`/`bruce-backend-engineer`.
 - Tras la implementación, el diseñador revisa el PR contra la spec (comentario, no aprobación de merge).
 
 ---
