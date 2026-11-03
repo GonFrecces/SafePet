@@ -12,7 +12,8 @@ colors:
   surface-0: "#FFFFFF"
   surface-50: "#F8FAFC" # fondo de app
   surface-100: "#F1F5F9"
-  surface-200: "#E2E8F0" # bordes
+  surface-200: "#E2E8F0" # bordes decorativos (cards, separadores); NO para bordes de inputs
+  border-input: "#64748B" # slate-500 · borde de inputs/selects/checkbox (4.76:1; WCAG 1.4.11 exige ≥ 3:1)
   text: "#0F172A" # slate-900
   text-muted: "#475569" # slate-600 (7.6:1)
   success: "#15803D"
@@ -66,6 +67,69 @@ Tono visual: clínico-confiable (teal + blanco + slate), con calidez puntual (il
 - `accent` solo en ilustraciones, badges decorativos o iconografía; nunca como color de texto ni único indicador de estado.
 - Tipos de atención con color fijo (`appointment_types`) + **siempre** etiqueta de texto (no depender solo del color).
 - Modo oscuro: fase 2 (equivalente `lara-dark`), no bloquear el MVP.
+
+### Tokens → variables PrimeReact (tema Lara, modo styled)
+
+Se aplican como override de variables CSS `:root` sobre `lara-light-teal` (lo implementa [GON-6](https://linear.app/gonfreccess/issue/GON-6/scaffold-del-frontend-react-primereact)). Los nombres de variable son los de PrimeReact 10 (`--primary-color`, `--surface-*`, `--border-radius`…); **[Hipótesis]** verificar contra la versión instalada al hacer el scaffold.
+
+| Token DESIGN.md          | Variable PrimeReact / PrimeFlex                                                                                            | Valor                          |
+| ------------------------ | -------------------------------------------------------------------------------------------------------------------------- | ------------------------------ |
+| `primary`                | `--primary-color`, `--highlight-bg` (texto: `--primary-color-text` = blanco)                                               | `#0F766E`                      |
+| `primary-hover`          | `--primary-600`… hover de `Button` (`--primary-color` oscurecido)                                                          | `#115E59`                      |
+| `primary-soft`           | `--highlight-bg` (selección), `--primary-100`                                                                              | `#CCFBF1`                      |
+| `surface-0`              | `--surface-card`, `--surface-0`                                                                                            | `#FFFFFF`                      |
+| `surface-50`             | `--surface-ground`, `--surface-50`                                                                                         | `#F8FAFC`                      |
+| `surface-100`            | `--surface-section`, `--surface-100`                                                                                       | `#F1F5F9`                      |
+| `surface-200`            | `--surface-border`, `--surface-200`                                                                                        | `#E2E8F0`                      |
+| `border-input`           | `--surface-border` solo en `.p-inputtext`, `.p-dropdown`, `.p-checkbox-box`, `.p-radiobutton-box` (override de componente) | `#64748B`                      |
+| `text`                   | `--text-color`                                                                                                             | `#0F172A`                      |
+| `text-muted`             | `--text-color-secondary`                                                                                                   | `#475569`                      |
+| `success`                | `--green-700` (severity `success`)                                                                                         | `#15803D`                      |
+| `warning`                | `--orange-700`/`--yellow-700` (severity `warning`; usar el valor del token)                                                | `#B45309`                      |
+| `danger`                 | `--red-700` (severity `danger`)                                                                                            | `#B91C1C`                      |
+| `info`                   | `--blue-700` (severity `info`)                                                                                             | `#1D4ED8`                      |
+| `radius.md` / `lg`       | `--border-radius` (6px) / clase propia en `Card` (12px)                                                                    | `6px` / `12px`                 |
+| `typography.font-family` | `--font-family`                                                                                                            | `Inter, system-ui, sans-serif` |
+| `elevation.card`         | `--card-shadow`                                                                                                            | `0 1px 3px rgba(15,23,42,.08)` |
+| `appointment_types.*`    | `Tag` con `style`/clase `tag-<tipo>` + color de evento FullCalendar (`eventColor`)                                         | ver tabla de tipos             |
+| foco                     | `--focus-ring: 0 0 0 2px #FFFFFF, 0 0 0 4px #0F766E`                                                                       | anillo 2px, 5.47:1             |
+
+### Tipos de atención (Tag + evento)
+
+Fondo sólido, texto blanco `#FFFFFF`, **siempre** con etiqueta de texto (y opcionalmente icono). Ningún tipo depende solo del color.
+
+| Tipo          | Etiqueta UI   | Fondo     | Contraste texto blanco |
+| ------------- | ------------- | --------- | ---------------------- |
+| CONSULTA      | Consulta      | `#1D4ED8` | 6.70:1                 |
+| TRATAMIENTO   | Tratamiento   | `#6D28D9` | 7.10:1                 |
+| CORTE_DE_PELO | Corte de pelo | `#BE185D` | 6.04:1                 |
+| URGENCIA      | Urgencia      | `#B91C1C` | 6.47:1                 |
+| PROCEDIMIENTO | Procedimiento | `#B45309` | 5.02:1                 |
+
+### Verificación de contraste (WCAG 2.2 AA)
+
+Herramienta: cálculo propio de luminancia relativa y razón de contraste según la fórmula WCAG 2.x (script Python, 2026-11-03). Umbrales: texto ≥ 4.5:1, componentes de UI y foco ≥ 3:1.
+
+| Par (frente / fondo)                            | Razón       | Umbral  | Resultado                      |
+| ----------------------------------------------- | ----------- | ------- | ------------------------------ |
+| `text` / `surface-0`                            | 17.85       | 4.5     | ✅                             |
+| `text-muted` / `surface-0` · `surface-50`       | 7.58 · 7.24 | 4.5     | ✅                             |
+| blanco / `primary` (texto de `Button`)          | 5.47        | 4.5     | ✅                             |
+| blanco / `primary-hover`                        | 7.58        | 4.5     | ✅                             |
+| `primary` / `primary-soft` (texto en selección) | 4.86        | 4.5     | ✅                             |
+| `text` / `primary-soft`                         | 15.84       | 4.5     | ✅                             |
+| `success` / `surface-0` · `surface-50`          | 5.02 · 4.79 | 4.5     | ✅                             |
+| `warning` / `surface-0` · `surface-50`          | 5.02 · 4.80 | 4.5     | ✅                             |
+| `danger` / `surface-0` · `surface-50`           | 6.47 · 6.18 | 4.5     | ✅                             |
+| `info` / `surface-0` · `surface-50`             | 6.70 · 6.41 | 4.5     | ✅                             |
+| `border-input` / `surface-0` · `surface-50`     | 4.76 · 4.55 | 3       | ✅                             |
+| `primary` (anillo de foco) / `surface-0`        | 5.47        | 3       | ✅                             |
+| `surface-200` / `surface-0` (borde decorativo)  | 1.23        | 3       | ❌ por eso no se usa en inputs |
+| `accent` `#F97316` / `surface-0`                | 2.80        | 3 / 4.5 | ❌ por eso es solo decorativo  |
+
+Hallazgo corregido en este cambio: el borde de input heredado de Lara (`#E2E8F0`) no cumplía 1.4.11; se agrega `border-input`.
+
+**Pendiente** (no verificado): contraste de los estados `disabled`, `:hover` de filas de `DataTable` y colores de eventos FullCalendar sobre cuadrícula; se revisan cuando exista el tema real (GON-6).
 
 ## Typography
 
