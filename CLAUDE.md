@@ -3,8 +3,10 @@
 Este archivo define cómo trabajar en este repositorio (personas y agentes de IA, incluido Claude Code).
 Es de cumplimiento obligatorio. Si una regla entra en conflicto con una instrucción puntual, se pregunta antes de actuar.
 
-> **Estado del repositorio (hecho observado, 2026-10-26):** el repositorio solo contiene `README.md`.
-> No existe aún código de frontend, backend, base de datos, CI ni pruebas.
+> **Estado del repositorio (hecho observado, 2026-11-07):** el repositorio contiene solo documentación (`README.md`, este archivo, `docs/`, `.claude/`).
+> No existe aún código de frontend, backend, base de datos, CI ni pruebas. La arquitectura base está en
+> [`docs/adr/0001-arquitectura-base.md`](docs/adr/0001-arquitectura-base.md) (estado **Propuesto**) y su hoja de ruta en
+> [`docs/roadmap/roadmap-mvp.md`](docs/roadmap/roadmap-mvp.md).
 > Todo lo que se marca como **[Propuesto]** es la estructura objetivo definida a partir del alcance del proyecto
 > en Linear ("SafePet - Update 🐈", equipo GON) y debe actualizarse en este archivo cuando se implemente.
 > Lo marcado como **[Hecho]** está verificado en el repositorio o en Linear.
@@ -17,10 +19,11 @@ SafePet es una aplicación web responsiva (escritorio y móvil) para agendar hor
 
 **[Hecho — Linear]** Requerimientos funcionales:
 
-- **Agenda pública sin login:** el cliente agenda una hora disponible según la disponibilidad de la **clínica/sucursal** (no del veterinario). Cualquier veterinario de la clínica puede atender.
+- **Agenda pública sin login [Hecho — decisión humana 2026-11-07, ADR-0001 CR-1/CR-2]:** la disponibilidad se gestiona **por veterinario y por sucursal**. Una cita reserva un veterinario, en una sucursal y en un box de esa sucursal, durante un rango horario. El cliente busca hora **por sucursal** (qué veterinarios tienen hora ahí) o **por veterinario** (en qué sucursales de la misma compañía tiene hora).
+- **Contingencia de sucursal [Hecho — decisión humana 2026-11-07, ADR-0001 CR-6]:** una sucursal puede quedar no disponible por un periodo (desastre, corte, evento). Las citas afectadas quedan marcadas para gestión: el personal llama al cliente o lo **reagenda con el mismo veterinario** en otra sucursal de la compañía que tenga box disponible. Ninguna cita afectada se cancela ni se mueve sin acción del personal.
 - **Notificaciones:** se avisa al usuario minutos antes del inicio de la cita.
 - **Multi-tenant:** muchas compañías usan la plataforma; cada dueño ve solo sus sucursales y clientes.
-- **Ficha clínica a nivel de clínica:** el historial médico de la mascota pertenece al tenant (clínica), no es global.
+- **Ficha clínica central por compañía [Hecho — decisión humana, ADR-0001 CR-3]:** el historial médico pertenece al tenant (la **compañía**), no es global ni por sucursal. Cualquier sucursal y veterinario de la compañía accede a la ficha completa, según su rol.
 - **Tipos de atención:** `CONSULTA`, `TRATAMIENTO`, `CORTE_DE_PELO`, `URGENCIA`, `PROCEDIMIENTO`.
 - **Ciclo de cita:** cada veterinario abre y cierra sus citas agendadas.
 - **Gestión:** atenciones, veterinarios, historial médico, recetas, tratamientos, pagos de atenciones y ventas con **Stripe**.
@@ -89,9 +92,10 @@ Regla de dependencias: `Api → Application → Domain` e `Infrastructure → Ap
 
 ### 2.4 Multi-tenancy **[Propuesto — crítico]**
 
-- Toda entidad perteneciente a una clínica lleva `TenantId` (compañía) y, cuando aplique, `BranchId` (sucursal).
+- El tenant es la **compañía**. Toda entidad perteneciente a una compañía lleva `TenantId` y, cuando aplique, `BranchId` (sucursal). La ficha clínica se filtra solo por `TenantId`, nunca por `BranchId`.
 - El aislamiento se aplica con **global query filters** de EF Core sobre `TenantId`; nunca se confía en filtros manuales en cada consulta.
-- El tenant se resuelve en `SafePet.Api` a partir del usuario autenticado. En la agenda pública se resuelve desde la clínica/sucursal elegida, nunca desde un parámetro libre que permita leer datos de otro tenant.
+- El tenant se resuelve en `SafePet.Api` a partir del usuario autenticado. En la agenda pública se resuelve desde el **slug de compañía** de la ruta (`/c/{companySlug}`); la sucursal y el veterinario se buscan **dentro** de esa compañía. El cliente nunca envía `TenantId`, ningún endpoint lista compañías y un id de otra compañía responde 404 (ADR-0001 §4.10).
+- Toda tarea que agrega entidades con `TenantId` amplía en el mismo PR la prueba de aislamiento parametrizada. Única excepción registrada: la primera migración (T-08 del roadmap) solo lleva prueba de metadatos; la prueba cruzada llega en T-10 (ADR-0001 §4.2).
 - Todo cambio que toque consultas, autorización o el modelo de datos debe incluir una prueba que verifique que un tenant **no** puede leer ni modificar datos de otro.
 
 ---
